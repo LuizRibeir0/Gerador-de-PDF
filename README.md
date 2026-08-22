@@ -66,10 +66,7 @@ imagem | File | foto.jpg
 
 ### Print do Postman
 
-
-```text
 ![Postman - conversão de uma imagem](documentos/imagens/postman.png)
-```
 
 ### Resultado
 
@@ -77,10 +74,7 @@ A API retorna um arquivo PDF contendo a imagem enviada.
 
 O arquivo pode ser salvo pelo Postman utilizando a opção de salvar a resposta.
 
-
-```text
 ![Salvar PDF](documentos/imagens/salvar-pdf.png)
-```
 
 ---
 
@@ -145,10 +139,7 @@ imagem3
 
 ### Print do Postman
 
-
-```text
 ![Postman - conversão em lote](documentos/imagens/postman-converter-lote.png)
-```
 
 ### Resultado
 
@@ -168,10 +159,9 @@ convertidos.zip
 └── 4.pdf
 ```
 
+O arquivo ZIP pode ser salvo pelo Postman utilizando a opção de salvar a resposta.
 
-```text
-![Salvar PDF](documentos/imagens/salvar-pdf.png)
-```
+![Salvar arquivo](documentos/imagens/salvar-pdf.png)
 
 ---
 
