@@ -5,6 +5,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,20 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class PdfService {
 
-    public byte[] converterImagemParaPdf(MultipartFile imagem) throws IOException {
+    private static final String PDF_FILENAME = "convertido.pdf";
+    private static final String ZIP_FILENAME = "convertidos.zip";
+
+    public ArquivoConvertido converterImagemParaPdf(MultipartFile imagem) throws IOException {
+        byte[] pdf = gerarPdf(imagem);
+        return new ArquivoConvertido(pdf, PDF_FILENAME, MediaType.APPLICATION_PDF);
+    }
+
+    public ArquivoConvertido converterImagensParaZip(MultipartFile[] imagens) throws IOException {
+        byte[] zip = gerarZip(imagens);
+        return new ArquivoConvertido(zip, ZIP_FILENAME, MediaType.APPLICATION_OCTET_STREAM);
+    }
+
+    private byte[] gerarPdf(MultipartFile imagem) throws IOException {
         validarImagem(imagem);
 
         try (PDDocument documento = new PDDocument();
@@ -48,7 +62,7 @@ public class PdfService {
         }
     }
 
-    public byte[] converterImagensParaZip(MultipartFile[] imagens) throws IOException {
+    private byte[] gerarZip(MultipartFile[] imagens) throws IOException {
         validarImagens(imagens);
 
         ByteArrayOutputStream zipOutputStream = new ByteArrayOutputStream();
@@ -58,7 +72,7 @@ public class PdfService {
 
             for (MultipartFile imagem : imagens) {
 
-                byte[] pdf = converterImagemParaPdf(imagem);
+                byte[] pdf = gerarPdf(imagem);
 
                 String nomePdf = gerarNomePdf(imagem, nomesUsados);
 
